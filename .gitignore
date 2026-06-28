@@ -1,0 +1,9 @@
+# Promo POC playbook — working notes / scaffold, not part of the published site.
+# (If this graduates into its own tool, it moves to its own repo.)
+playbook/
+
+# Node / Vite (for when the actual site lives here)
+node_modules/
+dist/
+*.local
+.DS_Store

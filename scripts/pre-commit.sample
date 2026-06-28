@@ -1,0 +1,21 @@
+#!/bin/sh
+# Pre-commit hook: rebuild GitHub Pages (docs/) before every commit so Pages always
+# serves a fresh build. (Pattern from auto-audiobook.)
+#
+# Install:
+#   cp scripts/pre-commit.sample .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+
+echo "[pre-commit] Building for GitHub Pages..."
+
+npm run build 2>&1
+
+if [ $? -ne 0 ]; then
+  echo "[pre-commit] Build failed — commit aborted."
+  exit 1
+fi
+
+# Stage the built docs/ folder so it's included in this commit.
+git add docs/
+
+echo "[pre-commit] docs/ rebuilt and staged."

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "duplication.png",
+    "caption": "Copy-paste clones across the repo, ranked by cost",
+    "group": "Advanced features"
+  },
+  {
+    "file": "doc-health.png",
+    "caption": "Broken links, orphaned and stale documentation",
+    "group": "Advanced features"
+  },
+  {
+    "file": "cross-layer.png",
+    "caption": "Client\u2194service mismatches across folders that single-language tools miss",
+    "group": "Advanced features"
+  },
+  {
+    "file": "full-graph.png",
+    "caption": "The cross-language dependency graph, dead branches highlighted",
+    "group": "Advanced features"
+  },
+  {
+    "file": "origin-flow.png",
+    "caption": "Trace where a data value actually comes from",
+    "group": "Advanced features"
+  },
+  {
+    "file": "trace-tree.png",
+    "caption": "Call and import chains for any symbol",
+    "group": "Advanced features"
+  },
+  {
+    "file": "finding-evidence.png",
+    "caption": "Drill into a finding: the duplicated content shown inline, with its evidence",
+    "group": "Advanced features"
+  },
+  {
+    "file": "export.png",
+    "caption": "Export a cleanup plan or a static HTML report from the same findings",
+    "group": "Advanced features"
+  }
+]

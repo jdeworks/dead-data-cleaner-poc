@@ -1,0 +1,54 @@
+{
+  "generatedWith": "ddc <repo> --accept-detected-model --graph --inventory --json",
+  "product": {
+    "languages": 9,
+    "rule_types": "28+",
+    "determinism": "deterministic-first"
+  },
+  "totals": {
+    "repos": 2,
+    "findings": 479,
+    "files": 104,
+    "loc": 48417,
+    "rule_types": 10
+  },
+  "repos": [
+    {
+      "name": "ripgrep",
+      "language": "Rust",
+      "kind": "public repo \u00b7 48k\u2605",
+      "findings": 467,
+      "files": 101,
+      "loc": 47351,
+      "duplication_ratio": 25.157412226942256,
+      "graph_nodes": 356,
+      "rules": {
+        "duplicate-block": 451,
+        "missing-env-var": 6,
+        "dead-env-var": 4,
+        "orphan-doc": 3,
+        "orphan-file": 1,
+        "dead-subtree": 1,
+        "doc-drift": 1
+      }
+    },
+    {
+      "name": "tmux-poc",
+      "language": "Python",
+      "kind": "our own agent harness",
+      "findings": 12,
+      "files": 3,
+      "loc": 1066,
+      "duplication_ratio": 1.8888584724883657,
+      "graph_nodes": 65,
+      "rules": {
+        "could-be-local": 4,
+        "missing-env-var": 3,
+        "missing-dependency": 2,
+        "duplicate-block": 1,
+        "doc-drift": 1,
+        "similar-doc-pair": 1
+      }
+    }
+  ]
+}

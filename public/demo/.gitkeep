@@ -1,0 +1,3 @@
+# Baked demo fixtures land here (manifest.json, stats.json, catalog.json, <item>/<id>.json,
+# screenshots/). Produced by scripts/extract_fixtures + scripts/capture_screenshots.
+# Committed and served raw — no backend. See ../../PLAYBOOK.md §4.
