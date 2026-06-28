@@ -1,43 +1,46 @@
-# dead-data-cleaner-poc
+# dead-data-cleaner — demo
 
-Public, **self-contained** static demo of dead-data-cleaner. **No backend, no keys.** A Vite + React
-SPA served by GitHub Pages that renders the real, pre-computed product output baked into
-static JSON under `public/demo/`.
+### ▶ [View the live demo](https://jdeworks.github.io/dead-data-cleaner-poc/)
 
-This is the starter scaffold from the **Promo POC Playbook**. Search the tree for `CHANGEME`
-and `dead-data-cleaner` to find every spot to fill in. Read `../PLAYBOOK.md` (recipe) and, for the
-dead-data-cleaner instance, `../APPLY-DDC.md`.
+A public, self-contained showcase for **dead-data-cleaner**, a tool that scans your
+codebase (the code *and* the data) and shows the dead weight: unused symbols, orphaned
+files, stale docs, duplicated blocks, and dangling config. Deterministic by default,
+AI-enhanced by choice, and visual so you can trust what it flags before you delete.
 
-## Develop
+[![dead-data-cleaner live demo](.github/preview.png)](https://jdeworks.github.io/dead-data-cleaner-poc/)
+
+## What's inside
+
+The page runs the **actual dead-data-cleaner viewer**, read-only, on genuine
+`ddc --json` output baked straight into the site. No backend, no keys, nothing live.
+
+- **Interactive demo** over two real scans (the ripgrep source in Rust, and our own
+  tmux-poc tooling in Python): an explorable treemap, a sortable findings table with a
+  per-finding evidence panel, and a project tree. Click a treemap cell to filter the
+  findings for that file.
+- **Advanced views** (cross-layer client/service analysis, the dependency graph,
+  architecture drift, duplication, doc health, origin flow) shown as captured
+  screenshots on the *Road ahead* page.
+- **Light and dark** theming throughout, including the demo.
+- A short **feedback survey** for early users and anyone interested.
+
+dead-data-cleaner itself is closed source for now; this repository holds only the demo
+site and the captured output it renders.
+
+## Run it locally
 
 ```bash
 npm install
 npm run dev        # http://localhost:4173/dead-data-cleaner-poc/
-npm run build      # -> docs/ (committed; Pages serves this)
-npm run preview
+npm run build      # builds to docs/ (committed; GitHub Pages serves this)
+npm run preview    # serve the built docs/
 ```
 
-## Bake the demo data
-
-```bash
-python3 scripts/extract_fixtures.py        # real output -> public/demo/*.json
-python3 scripts/capture_screenshots.py     # UI shots    -> public/demo/screenshots/
-```
-
-See `scripts/*.md` for what each does (and the safety rules).
+Built with Vite, React, TypeScript, and Tailwind. The demo viewer is the real product's
+React components, fed the baked fixtures under `public/demo/`.
 
 ## Deploy
 
-See `../DEPLOY.md`. In short: `npm run build`, commit `docs/`, enable
-Settings → Pages → Deploy from a branch → `<branch>` → `/docs`.
-
-## Structure
-
-```
-public/demo/        baked fixtures (committed, served raw)
-src/stores/         view-store (no router) + theme-store
-src/lib/demo.ts     base-path-aware fixture loader
-src/components/     Sidebar, ui kit, SurveyPage (Google Form)
-src/views/          Landing, Why, HowItWorks, Demo, Roadmap, Investors
-scripts/            extract_fixtures, capture_screenshots, pre-commit.sample
-```
+The built output in `docs/` is committed and served directly by GitHub Pages from the
+`dev` branch (Settings → Pages → Deploy from a branch → `dev` → `/docs`). To publish an
+update: `npm run build`, commit `docs/`, and push.
