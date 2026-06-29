@@ -222,6 +222,17 @@ export function FilterBar({
           </label>
         )}
 
+        <label className="filter-control filter-control-checkbox">
+          <input
+            type="checkbox"
+            checked={!!spec.includeExpected}
+            onChange={(e) =>
+              onChange({ ...spec, includeExpected: e.currentTarget.checked })
+            }
+          />
+          Include expected
+        </label>
+
         {/* Rule (secondary refinement) */}
         <label className="filter-control">
           Rule

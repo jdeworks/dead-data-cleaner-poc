@@ -13,6 +13,7 @@ import {
   severityOf,
   severityOrdinal,
   groupOf,
+  isExpectedFinding,
   defaultFindingSpec,
   emptyFilterSpec,
   loadFilterSpec,
@@ -320,6 +321,15 @@ export function FindingsPanel({
 
   // Whether the banner should show (clones excluded AND there are clones).
   const showCloneBanner = !!(effectiveExcludeClones && cloneCount > 0);
+  const hiddenByDefaultCount = useMemo(
+    () =>
+      displayFindings.filter(
+        (f) =>
+          (effectiveExcludeClones && f.rule === "duplicate-block") ||
+          (!spec.includeExpected && isExpectedFinding(f)),
+      ).length,
+    [displayFindings, effectiveExcludeClones, spec.includeExpected],
+  );
 
   const filtered = useMemo(() => {
     const sub = (spec.pathContains ?? "").trim().toLowerCase();
@@ -329,6 +339,7 @@ export function FindingsPanel({
       // WP26: excludeClones flag — skip duplicate-block when active. A path filter
       // (treemap deep-link) suppresses this so the file's full count is shown.
       if (effectiveExcludeClones && f.rule === "duplicate-block") return false;
+      if (!spec.includeExpected && isExpectedFinding(f)) return false;
       // FilterSpec fields
       if (spec.groups.length > 0) {
         if (!spec.groups.includes(groupOf(f.rule))) return false;
@@ -502,7 +513,7 @@ export function FindingsPanel({
         )}
 
         <div style={{ color: "var(--fg-muted)", marginBottom: 8 }}>
-          {filtered.length} of {effectiveExcludeClones ? displayFindings.length - cloneCount : displayFindings.length} {effectiveExcludeClones ? "issues" : "findings"}
+          {filtered.length} of {displayFindings.length - hiddenByDefaultCount} {effectiveExcludeClones || !spec.includeExpected ? "issues" : "findings"}
         </div>
 
         <div
@@ -583,6 +594,11 @@ export function FindingsPanel({
                   <td className="path-cell" title={f.target.path}>
                     {f.target.path}
                     {f.target.span ? `:${f.target.span.start_line}` : ""}
+                    {isExpectedFinding(f) && (
+                      <Chip tone="muted" title={String((f.evidence.graph as Record<string, unknown>).expected_reason ?? "expected finding")}>
+                        expected
+                      </Chip>
+                    )}
                     {/* T3: inline "Show in Graph" for file/doc targets */}
                     {onShowInGraph && (f.target.kind === "file" || f.target.kind === "doc") && (
                       <button

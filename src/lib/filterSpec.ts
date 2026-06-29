@@ -210,6 +210,17 @@ export interface FilterSpec {
    * rest of the spec in localStorage. Does NOT affect exports or cleanup plans.
    */
   excludeClones?: boolean;
+  /**
+   * UI-only: include findings tagged by the engine as expected external/runtime
+   * cases. Default false so known low-actionability noise stays out of the main
+   * workflow while remaining inspectable.
+   */
+  includeExpected?: boolean;
+}
+
+export function isExpectedFinding(f: Finding): boolean {
+  const graph = f.evidence.graph as Record<string, unknown>;
+  return graph.expected === true;
 }
 
 /** Empty FilterSpec that passes every finding (no constraints at all). */
@@ -222,6 +233,7 @@ export function emptyFilterSpec(): FilterSpec {
     gating: undefined,
     pathContains: undefined,
     excludeClones: false,
+    includeExpected: false,
   };
 }
 
@@ -307,6 +319,7 @@ function passes(f: Finding, spec: FilterSpec): boolean {
   // behaviour (banner + resolve folding). applyFilter respects it so that a
   // plain `applyFilter(findings, spec)` also excludes clones when the flag is set.
   if (spec.excludeClones && f.rule === "duplicate-block") return false;
+  if (!spec.includeExpected && isExpectedFinding(f)) return false;
 
   // Group filter
   if (spec.groups.length > 0) {

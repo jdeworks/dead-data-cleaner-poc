@@ -1,54 +1,28 @@
 {
-  "generatedWith": "ddc <repo> --accept-detected-model --graph --inventory --json",
-  "product": {
-    "languages": 9,
-    "rule_types": "28+",
-    "determinism": "deterministic-first"
-  },
-  "totals": {
-    "repos": 2,
-    "findings": 479,
-    "files": 104,
-    "loc": 48417,
-    "rule_types": 10
-  },
-  "repos": [
-    {
-      "name": "ripgrep",
-      "language": "Rust",
-      "kind": "public repo \u00b7 48k\u2605",
-      "findings": 467,
+  "generatedAt": "2026-06-29T11:43:44.370Z",
+  "generatedWith": "ddc current dogfood precision build, 2026-06-29",
+  "fixtures": {
+    "ripgrep": {
+      "findings": 465,
       "files": 101,
-      "loc": 47351,
+      "total_loc": 47351,
+      "total_functions": 3077,
+      "clone_classes": 451,
+      "cloned_tokens": 74915,
       "duplication_ratio": 25.157412226942256,
-      "graph_nodes": 356,
-      "rules": {
-        "duplicate-block": 451,
-        "missing-env-var": 6,
-        "dead-env-var": 4,
-        "orphan-doc": 3,
-        "orphan-file": 1,
-        "dead-subtree": 1,
-        "doc-drift": 1
-      }
+      "expected_duplicate_classes": 356,
+      "visible_duplicate_classes": 95
     },
-    {
-      "name": "tmux-poc",
-      "language": "Python",
-      "kind": "our own agent harness",
+    "tmux-poc": {
       "findings": 12,
       "files": 3,
-      "loc": 1066,
+      "total_loc": 1066,
+      "total_functions": 52,
+      "clone_classes": 1,
+      "cloned_tokens": 138,
       "duplication_ratio": 1.8888584724883657,
-      "graph_nodes": 65,
-      "rules": {
-        "could-be-local": 4,
-        "missing-env-var": 3,
-        "missing-dependency": 2,
-        "duplicate-block": 1,
-        "doc-drift": 1,
-        "similar-doc-pair": 1
-      }
+      "expected_duplicate_classes": 0,
+      "visible_duplicate_classes": 1
     }
-  ]
+  }
 }

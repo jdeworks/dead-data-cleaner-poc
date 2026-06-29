@@ -5,6 +5,7 @@ import type { DdcReport } from "../types";
 import { MetricsHeader } from "./MetricsHeader";
 import { Treemap } from "./Treemap";
 import { FindingsPanel } from "./FindingsPanel";
+import { DuplicationView } from "./DuplicationView";
 import { ProjectTree } from "./ProjectTree";
 import { Panel } from "./ui";
 import { inertControlProps } from "./demoInert";
@@ -13,12 +14,13 @@ import { inertControlProps } from "./demoInert";
 // project tree, summary) fed a baked `ddc --json` fixture. No Tauri, no backend —
 // every desktop-only path takes its browser fallback automatically (lib/tauri self-stubs).
 
-type DemoView = "summary" | "treemap" | "findings" | "tree";
+type DemoView = "summary" | "treemap" | "findings" | "duplication" | "tree";
 
 const VIEWS: { id: DemoView; label: string }[] = [
   { id: "summary", label: "Summary" },
   { id: "treemap", label: "Treemap" },
   { id: "findings", label: "Findings" },
+  { id: "duplication", label: "Duplication" },
   { id: "tree", label: "Project tree" },
 ];
 
@@ -30,7 +32,6 @@ const PREVIEW_VIEWS: string[] = [
   "Cross-layer",
   "Dependency graph",
   "Architecture",
-  "Duplication",
   "Doc health",
   "Origin flow",
 ];
@@ -167,9 +168,18 @@ export function DemoViewer() {
                   origins={report.origins}
                   targetRoot={report.run.target_root}
                   memberRoots={report.member_roots}
+                  onOpenDuplication={() => setView("duplication")}
                   demoInert
                 />
               </div>
+            )}
+            {view === "duplication" && (
+              <DuplicationView
+                findings={report.findings}
+                metrics={report.metrics}
+                targetRoot={report.run.target_root}
+                memberRoots={report.member_roots}
+              />
             )}
             {view === "tree" && (
               <ProjectTree
