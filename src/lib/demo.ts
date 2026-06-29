@@ -22,19 +22,22 @@ export async function fetchJson<T>(relativePath: string): Promise<T> {
 // ── Stats (real aggregates, generated from the two public-repo scans) ──
 export interface DemoStats {
   generatedWith: string;
-  product: { languages: number; rule_types: string; determinism: string };
-  totals: { repos: number; findings: number; files: number; loc: number; rule_types: number };
-  repos: {
-    name: string;
-    language: string;
-    kind: string;
+  generatedAt: string;
+  fixtures: Record<
+    string,
+    {
     findings: number;
     files: number;
-    loc: number;
+      total_loc: number;
+      total_functions: number;
+      clone_classes: number;
+      cloned_tokens: number;
     duplication_ratio: number;
-    graph_nodes: number;
+      expected_duplicate_classes: number;
+      visible_duplicate_classes: number;
     rules: Record<string, number>;
-  }[];
+    }
+  >;
 }
 
 let _stats: Promise<DemoStats> | null = null;
@@ -61,11 +64,11 @@ export const FIXTURES: DemoFixture[] = [
     file: "ripgrep-findings.json",
   },
   {
-    id: "tmux-poc",
-    label: "tmux-poc",
-    language: "Python · ours",
-    story: "Our own AI-agent harness — the exact kind of project ddc is built to keep clean.",
-    file: "tmux-poc-findings.json",
+    id: "tmux",
+    label: "tmux",
+    language: "C · public",
+    story: "A mature public C codebase: mostly duplication and structural clone signals.",
+    file: "tmux-findings.json",
   },
 ];
 

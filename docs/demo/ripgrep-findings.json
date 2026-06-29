@@ -55,46 +55,6 @@
       }
     },
     {
-      "confidence": 70,
-      "determinism_tier": "deterministic",
-      "evidence": {
-        "base_prior": 0.7,
-        "graph": {
-          "callable": false,
-          "reached_from_live_root": false,
-          "resolution_complete": true,
-          "symbol": "SHERLOCK_CRLF",
-          "transitively_dead": true
-        },
-        "multipliers": [
-          {
-            "detail": "reachable from no live root over the conservative def→use graph; referenced only by other dead symbols (if at all)",
-            "factor": 1.0,
-            "name": "transitively-dead"
-          }
-        ],
-        "reason": "`SHERLOCK_CRLF` is reachable from no live entry/export: it is referenced only by other dead symbols (transitive dead code)."
-      },
-      "gating": "advisory-only",
-      "id": "f_a642ce70b0054676",
-      "impact": {
-        "metric": "loc",
-        "value": 1
-      },
-      "rule": "dead-subtree",
-      "run_id": "run_64ac2cedc08b4e48",
-      "severity": "low",
-      "target": {
-        "kind": "symbol",
-        "node_id": "symbol:crates/printer/src/standard.rs#SHERLOCK_CRLF",
-        "path": "crates/printer/src/standard.rs",
-        "span": {
-          "end_line": 1763,
-          "start_line": 1763
-        }
-      }
-    },
-    {
       "confidence": 85,
       "determinism_tier": "deterministic",
       "evidence": {
@@ -26813,6 +26773,7 @@
         "base_prior": 0.7,
         "graph": {
           "code_comment_referenced": false,
+          "code_referenced": false,
           "doc_link_density": 0.36363636363636365,
           "expected": true,
           "expected_reason": "doc matches [docs].external_docs and is expected to be referenced outside the repo",
@@ -26820,7 +26781,7 @@
           "reachable_from_bfs_roots": false
         },
         "multipliers": [],
-        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code-comment reference (BFS fixed-point over doc→doc edges including inline-code spans)."
+        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code reference (BFS fixed-point over doc→doc edges including inline-code spans)."
       },
       "gating": "advisory-only",
       "id": "f_f72bc4e7b4a7ddcd",
@@ -26845,6 +26806,7 @@
         "base_prior": 0.7,
         "graph": {
           "code_comment_referenced": false,
+          "code_referenced": false,
           "doc_link_density": 0.36363636363636365,
           "expected": true,
           "expected_reason": "doc matches [docs].external_docs and is expected to be referenced outside the repo",
@@ -26852,7 +26814,7 @@
           "reachable_from_bfs_roots": false
         },
         "multipliers": [],
-        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code-comment reference (BFS fixed-point over doc→doc edges including inline-code spans)."
+        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code reference (BFS fixed-point over doc→doc edges including inline-code spans)."
       },
       "gating": "advisory-only",
       "id": "f_07ac0cb11f283abb",
@@ -26877,6 +26839,7 @@
         "base_prior": 0.7,
         "graph": {
           "code_comment_referenced": false,
+          "code_referenced": false,
           "doc_link_density": 0.36363636363636365,
           "expected": true,
           "expected_reason": "doc matches [docs].external_docs and is expected to be referenced outside the repo",
@@ -26884,7 +26847,7 @@
           "reachable_from_bfs_roots": false
         },
         "multipliers": [],
-        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code-comment reference (BFS fixed-point over doc→doc edges including inline-code spans)."
+        "reason": "orphan-doc: not reachable from any entry doc, nav config, or code reference (BFS fixed-point over doc→doc edges including inline-code spans)."
       },
       "gating": "advisory-only",
       "id": "f_cb4959ee89a74798",
@@ -27607,7 +27570,7 @@
     "summary": {
       "edges": 133,
       "files": 101,
-      "findings": 465,
+      "findings": 464,
       "nodes": 129
     },
     "target_root": "/tmp/ddc-ripgrep",

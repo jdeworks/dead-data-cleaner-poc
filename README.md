@@ -14,8 +14,8 @@ AI-enhanced by choice, and visual so you can trust what it flags before you dele
 The page runs the **actual dead-data-cleaner viewer**, read-only, on genuine
 `ddc --json` output baked straight into the site. No backend, no keys, nothing live.
 
-- **Interactive demo** over two real scans (the ripgrep source in Rust, and our own
-  tmux-poc tooling in Python): an explorable treemap, a sortable findings table with a
+- **Interactive demo** over two real public scans (the ripgrep source in Rust, and
+  tmux in C): an explorable treemap, a sortable findings table with a
   per-finding evidence panel, and a project tree. Click a treemap cell to filter the
   findings for that file.
 - **Advanced views** (cross-layer client/service analysis, the dependency graph,

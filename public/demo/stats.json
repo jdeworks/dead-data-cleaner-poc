@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-29T11:43:44.370Z",
-  "generatedWith": "ddc current dogfood precision build, 2026-06-29",
+  "generatedAt": "2026-06-29T13:11:50.453Z",
+  "generatedWith": "ddc 698e587+section6 fixture refresh, 2026-06-29",
   "fixtures": {
     "ripgrep": {
-      "findings": 465,
+      "findings": 464,
       "files": 101,
       "total_loc": 47351,
       "total_functions": 3077,
@@ -11,18 +11,30 @@
       "cloned_tokens": 74915,
       "duplication_ratio": 25.157412226942256,
       "expected_duplicate_classes": 356,
-      "visible_duplicate_classes": 95
+      "visible_duplicate_classes": 95,
+      "rules": {
+        "orphan-file": 1,
+        "duplicate-block": 451,
+        "doc-drift": 1,
+        "orphan-doc": 3,
+        "dead-env-var": 4,
+        "missing-env-var": 4
+      }
     },
-    "tmux-poc": {
-      "findings": 12,
-      "files": 3,
-      "total_loc": 1066,
-      "total_functions": 52,
-      "clone_classes": 1,
-      "cloned_tokens": 138,
-      "duplication_ratio": 1.8888584724883657,
-      "expected_duplicate_classes": 0,
-      "visible_duplicate_classes": 1
+    "tmux": {
+      "findings": 655,
+      "files": 205,
+      "total_loc": 90961,
+      "total_functions": 2702,
+      "clone_classes": 653,
+      "cloned_tokens": 109592,
+      "duplication_ratio": 20.509787775573606,
+      "expected_duplicate_classes": 322,
+      "visible_duplicate_classes": 331,
+      "rules": {
+        "duplicate-block": 653,
+        "orphan-doc": 2
+      }
     }
   }
 }
