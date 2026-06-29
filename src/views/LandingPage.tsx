@@ -51,7 +51,7 @@ export function LandingPage() {
       </div>
       <p className="mt-3 text-xs text-fg-dim">
         Numbers from our own development across many real repositories. The live demo below runs on
-        two of them, the ripgrep source and tmux.
+        ripgrep, tmux, and one of our own small harnesses.
       </p>
 
       <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3">

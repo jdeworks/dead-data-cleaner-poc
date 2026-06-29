@@ -70,6 +70,13 @@ export const FIXTURES: DemoFixture[] = [
     story: "A mature public C codebase: mostly duplication and structural clone signals.",
     file: "tmux-findings.json",
   },
+  {
+    id: "tmux-poc",
+    label: "tmux-poc",
+    language: "Python · ours",
+    story: "Our own small AI-agent harness: a compact sanity fixture that should stay in the demo.",
+    file: "tmux-poc-findings.json",
+  },
 ];
 
 const _reports = new Map<string, Promise<unknown>>();

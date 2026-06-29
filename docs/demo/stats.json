@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-29T13:11:50.453Z",
-  "generatedWith": "ddc 698e587+section6 fixture refresh, 2026-06-29",
+  "generatedAt": "2026-06-29T13:27:49.913Z",
+  "generatedWith": "ddc 082d676+a6ac2a3 plus tmux-poc fixture refresh, 2026-06-29",
   "fixtures": {
     "ripgrep": {
       "findings": 464,
@@ -34,6 +34,25 @@
       "rules": {
         "duplicate-block": 653,
         "orphan-doc": 2
+      }
+    },
+    "tmux-poc": {
+      "findings": 11,
+      "files": 3,
+      "total_loc": 1066,
+      "total_functions": 52,
+      "clone_classes": 1,
+      "cloned_tokens": 138,
+      "duplication_ratio": 1.8888584724883657,
+      "expected_duplicate_classes": 0,
+      "visible_duplicate_classes": 1,
+      "rules": {
+        "unused-dependency": 1,
+        "could-be-local": 4,
+        "duplicate-block": 1,
+        "doc-drift": 1,
+        "missing-env-var": 3,
+        "similar-doc-pair": 1
       }
     }
   }
