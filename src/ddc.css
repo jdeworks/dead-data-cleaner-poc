@@ -835,8 +835,16 @@ td.table-empty {
   border: 1px solid var(--border);
   border-radius: 6px;
 }
+/* Sizing wrapper: width is set inline from the zoom level and the aspect-ratio
+   (also inline, from the treemap's viewBox) derives the height, so zoom grows the
+   SVG in BOTH dimensions. The SVG fills it. min-width:100% keeps it ≥ viewport. */
+.treemap-svg-inner {
+  min-width: 100%;
+}
 .treemap-svg-scroll .treemap {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 /* Fullscreen overlay: lift the whole treemap to fill the screen (esp. on mobile,
    where the cells are otherwise cramped). The controls stay pinned at the top and
@@ -856,8 +864,32 @@ td.table-empty {
   flex: 1 1 auto;
   min-height: 0;
 }
-.treemap-wrap.is-fullscreen .treemap {
-  height: 100%;
+/* On-screen fullscreen exit (Esc is keyboard-only — mobile needs a tap target).
+   Pinned top-right of the overlay, large enough for touch. Shared by treemap +
+   project-tree fullscreen. */
+.ddc-fullscreen-close {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 70;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-elev);
+  color: var(--fg);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.ddc-fullscreen-close:hover,
+.ddc-fullscreen-close:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .treemap rect {
   cursor: pointer;

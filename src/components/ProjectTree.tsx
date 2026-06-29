@@ -487,6 +487,17 @@ export function ProjectTree({
 
   return (
     <div className={`panel${fullscreen ? " is-fullscreen" : ""}`}>
+      {fullscreen && (
+        <button
+          type="button"
+          className="ddc-fullscreen-close"
+          onClick={() => toggleFullscreen()}
+          aria-label="Exit fullscreen"
+          title="Exit fullscreen (Esc)"
+        >
+          ✕
+        </button>
+      )}
       <div className="tree-head">
         <h2>Project tree</h2>
         <div className="tree-head-actions">

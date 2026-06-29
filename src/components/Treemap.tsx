@@ -800,12 +800,19 @@ export function Treemap({
           className="treemap-svg-scroll"
           data-zoomed={zoom > 1 ? "true" : undefined}
         >
+        {/* Sizing wrapper: zoom drives the WIDTH and the aspect-ratio derives the
+            matching HEIGHT, so the SVG genuinely grows in both dimensions (and the
+            scroll container pans) instead of being letterboxed at a fixed height. */}
+        <div
+          className="treemap-svg-inner"
+          style={{ width: `${zoom * 100}%`, aspectRatio: `${WIDTH} / ${HEIGHT}` }}
+        >
         <svg
           className="treemap"
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+          preserveAspectRatio="xMidYMid meet"
           role="img"
           aria-label="File treemap by severity"
-          style={{ width: `${zoom * 100}%`, minWidth: "100%" }}
         >
           {viewMode === "folder"
             ? cells.map((cell) => {
@@ -882,6 +889,19 @@ export function Treemap({
               })}
         </svg>
         </div>
+        </div>
+      )}
+
+      {fullscreen && (
+        <button
+          type="button"
+          className="ddc-fullscreen-close"
+          onClick={() => setFullscreen(false)}
+          aria-label="Exit fullscreen"
+          title="Exit fullscreen (Esc)"
+        >
+          ✕
+        </button>
       )}
 
       {tip && (
