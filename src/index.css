@@ -211,6 +211,15 @@ button:not(:disabled),
   border: 1px solid #9aa4ae;
 }
 
+/* ok-chip / delta-new-chip hardcode #56d364 — a bright green legible only on dark.
+   On the light tinted fill it drops to ~1.64:1, so swap in a dark-green light pair. */
+:root.light .demo-surface .ok-chip,
+:root.light .demo-surface .delta-new-chip {
+  background: #dafbe1;
+  border-color: #2da44e;
+  color: #116329;
+}
+
 /* ── Fix 2: findings list scroll in the embedded demo ──
    FindingsPanel sizes its scroller with `max-height: calc(100vh - 320px)`, tuned
    for the full app's chrome. Here the chrome above the table (page header, repo
