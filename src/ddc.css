@@ -812,6 +812,53 @@ td.table-empty {
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
+/* Zoom control cluster + the scrollable, scalable SVG viewport (mobile usability). */
+.treemap-zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.treemap-zoom-val {
+  min-width: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums;
+}
+.treemap-svg-scroll {
+  width: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.treemap-svg-scroll[data-zoomed="true"] {
+  cursor: grab;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.treemap-svg-scroll .treemap {
+  display: block;
+}
+/* Fullscreen overlay: lift the whole treemap to fill the screen (esp. on mobile,
+   where the cells are otherwise cramped). The controls stay pinned at the top and
+   the SVG viewport flex-fills the remaining height. */
+.treemap-wrap.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--bg);
+  margin: 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.treemap-wrap.is-fullscreen .treemap-svg-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.treemap-wrap.is-fullscreen .treemap {
+  height: 100%;
+}
 .treemap rect {
   cursor: pointer;
   transition: opacity 0.1s;
@@ -898,9 +945,13 @@ td.table-empty {
   border: none;
   color: var(--accent);
   cursor: pointer;
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
+  /* ≥24px tall to clear the WCAG 2.5.8 AA touch-target minimum (was 22px). */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 .treemap-crumbs .crumb:hover:not(:disabled) {
   background: var(--bg-elev);

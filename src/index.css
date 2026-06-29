@@ -10,7 +10,8 @@
   --color-line-strong: #3a424f;
   --color-fg: #e6edf3;
   --color-fg-muted: #9aa7b4;
-  --color-fg-dim: #6b7787;
+  /* #6b7787 failed WCAG AA (3.5-4.2:1) on dark surfaces; #8693a0 clears 4.5:1. */
+  --color-fg-dim: #8693a0;
   --color-accent: #4493f8;
   --color-accent-dim: #1f6feb;
   --color-accent-fg: #ffffff;
@@ -34,7 +35,8 @@
   --color-line-strong: #afb8c1;
   --color-fg: #1f2328;
   --color-fg-muted: #59636e;
-  --color-fg-dim: #818b96;
+  /* #818b96 failed WCAG AA (3.0-3.5:1) on light surfaces; #5b6470 clears 4.5:1. */
+  --color-fg-dim: #5b6470;
   --color-accent: #0969da;
   --color-accent-dim: #0860c8;
   --color-accent-fg: #ffffff;
@@ -272,8 +274,17 @@ button:not(:disabled),
   .demo-surface .findings-layout,
   .demo-surface .findings-layout > *,
   .demo-surface .clone-site,
-  .demo-surface .clone-site-row {
+  .demo-surface .clone-site-row,
+  /* Keep the shared Table's overflow-x:auto wrapper (and its panel) bounded to the
+     viewport so a wide data table scrolls WITHIN itself instead of widening the page. */
+  .demo-surface .table-wrap,
+  .demo-surface .panel,
+  .demo-surface .panel-body,
+  .demo-surface .overview-function-viewer {
     min-width: 0;
+  }
+  .demo-surface .table-wrap {
+    max-width: 100%;
   }
   .demo-surface .clone-site-code,
   .demo-surface .evidence {

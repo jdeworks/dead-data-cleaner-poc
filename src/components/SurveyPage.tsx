@@ -128,7 +128,7 @@ export function SurveyPage() {
         <div className="flex justify-center gap-3">
           <button
             onClick={() => setView("demo")}
-            className="rounded-lg bg-accent px-6 py-2 font-medium text-accent-fg"
+            className="rounded-lg bg-accent-dim px-6 py-2 font-medium text-accent-fg"
           >
             Back to the demo
           </button>
@@ -183,6 +183,7 @@ export function SurveyPage() {
           </p>
           <input
             type="text"
+            aria-label="E-Mail or Phone"
             value={data.contact}
             onChange={(e) => update("contact", e.target.value)}
             placeholder="hello@world"
@@ -191,6 +192,7 @@ export function SurveyPage() {
         </Question>
         <Question label="Anything else you'd like to share?" optional>
           <textarea
+            aria-label="Anything else you'd like to share?"
             value={data.feedback}
             onChange={(e) => update("feedback", e.target.value)}
             placeholder="Ideas, concerns, feature requests…"
@@ -201,7 +203,7 @@ export function SurveyPage() {
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className="w-full rounded-lg bg-accent py-3 font-medium text-accent-fg disabled:opacity-40"
+          className="w-full rounded-lg bg-accent-dim py-3 font-medium text-accent-fg disabled:opacity-40"
         >
           {sending ? "Sending…" : "Submit feedback"}
         </button>

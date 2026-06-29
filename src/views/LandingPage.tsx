@@ -29,7 +29,7 @@ export function LandingPage() {
       <div className="mb-10 flex flex-wrap gap-3">
         <button
           onClick={() => setView("demo")}
-          className="rounded-lg bg-accent px-6 py-2.5 font-medium text-accent-fg"
+          className="rounded-lg bg-accent-dim px-6 py-2.5 font-medium text-accent-fg"
         >
           Explore real findings
         </button>

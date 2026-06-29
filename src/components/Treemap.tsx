@@ -299,6 +299,30 @@ export function Treemap({
     { tone: "ok" | "bad"; text: string } | null
   >(null);
   const [noFindingsPath, setNoFindingsPath] = useState<string | null>(null);
+  // Mobile usability (P-zoom): treemap cells get tiny on a phone. `zoom` scales the
+  // SVG inside a scrollable viewport (pan by dragging/scrolling); `fullscreen` lifts
+  // the whole treemap into a fixed overlay so it gets the entire screen.
+  const [zoom, setZoom] = useState(1);
+  const [fullscreen, setFullscreen] = useState(false);
+  const ZOOM_MIN = 1;
+  const ZOOM_MAX = 4;
+  const zoomBy = (d: number) =>
+    setZoom((z) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round((z + d) * 10) / 10)));
+
+  // Esc exits fullscreen; lock body scroll while the overlay is open.
+  useEffect(() => {
+    if (!fullscreen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullscreen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [fullscreen]);
 
   const selectedPathNorm = selectedPath ? normalizePath(selectedPath) : "";
 
@@ -589,7 +613,7 @@ export function Treemap({
   );
 
   return (
-    <div className="treemap-wrap">
+    <div className={`treemap-wrap${fullscreen ? " is-fullscreen" : ""}`}>
       <div className="treemap-controls">
         <span style={{ color: "var(--fg-muted)" }}>Size by</span>
         <button
@@ -654,6 +678,44 @@ export function Treemap({
         >
           List
         </button>
+
+        {viewMode !== "list" && (
+          <>
+            <span style={{ width: 12 }} />
+            <span className="treemap-zoom" role="group" aria-label="Zoom treemap">
+              <button
+                onClick={() => zoomBy(-0.5)}
+                disabled={zoom <= ZOOM_MIN}
+                aria-label="Zoom out"
+                title="Zoom out"
+              >
+                −
+              </button>
+              <span className="treemap-zoom-val">{Math.round(zoom * 100)}%</span>
+              <button
+                onClick={() => zoomBy(0.5)}
+                disabled={zoom >= ZOOM_MAX}
+                aria-label="Zoom in"
+                title="Zoom in"
+              >
+                +
+              </button>
+              {zoom !== 1 && (
+                <button onClick={() => setZoom(1)} aria-label="Reset zoom" title="Reset zoom">
+                  Reset
+                </button>
+              )}
+            </span>
+            <button
+              className={fullscreen ? "active" : ""}
+              onClick={() => setFullscreen((f) => !f)}
+              aria-pressed={fullscreen}
+              title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen treemap"}
+            >
+              {fullscreen ? "⤢ Exit" : "⤢ Fullscreen"}
+            </button>
+          </>
+        )}
 
         <div style={{ flex: 1 }} />
         <Legend />
@@ -734,12 +796,16 @@ export function Treemap({
           emptyMessage="No files"
         />
       ) : (
+        <div
+          className="treemap-svg-scroll"
+          data-zoomed={zoom > 1 ? "true" : undefined}
+        >
         <svg
           className="treemap"
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          width="100%"
           role="img"
           aria-label="File treemap by severity"
+          style={{ width: `${zoom * 100}%`, minWidth: "100%" }}
         >
           {viewMode === "folder"
             ? cells.map((cell) => {
@@ -815,6 +881,7 @@ export function Treemap({
                 );
               })}
         </svg>
+        </div>
       )}
 
       {tip && (

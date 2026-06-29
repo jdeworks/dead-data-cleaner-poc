@@ -142,7 +142,7 @@ export function InvestorsPage() {
 
       <button
         onClick={() => setView("survey")}
-        className="rounded-lg bg-accent px-6 py-2.5 font-medium text-accent-fg"
+        className="rounded-lg bg-accent-dim px-6 py-2.5 font-medium text-accent-fg"
       >
         Get in touch
       </button>
