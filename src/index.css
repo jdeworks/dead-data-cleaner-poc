@@ -60,7 +60,9 @@
   --border-strong: #3a424f;
   --fg: #e6edf3;
   --fg-muted: #9aa7b4;
-  --fg-dim: #6b7787;
+  /* #6b7787 failed WCAG AA (3.5-4.2:1) on every surface; #8693a0 clears 4.5:1
+     (≥5.0:1) while staying dimmer than --fg-muted. */
+  --fg-dim: #8693a0;
   --accent: #4493f8;
   --accent-dim: #1f6feb;
   --sev-clean: #2d333b;
@@ -84,7 +86,9 @@
   --border-strong: #afb8c1;
   --fg: #1f2328;
   --fg-muted: #59636e;
-  --fg-dim: #818b96;
+  /* #818b96 failed WCAG AA (3.0-3.5:1) on the light surfaces; #5b6470 clears
+     4.5:1 (≥5.1:1) on canvas + elevated fills. */
+  --fg-dim: #5b6470;
   --accent: #0969da;
   --accent-dim: #0860c8;
   --sev-clean: #eaeef2;
@@ -254,5 +258,26 @@ button:not(:disabled),
   .demo-surface .demo-fill .evidence {
     max-height: 100%;
     min-height: 0;
+  }
+}
+
+/* ── Fix 3: mobile horizontal overflow in the embedded demo ──
+   At ≤700px the findings two-column grid collapses to one column, but several
+   flex/grid wrappers (.demo-fill, .findings-layout and its children, clone-site
+   rows) had no `min-width:0`, so a wide child (long code/token row) pushed them
+   past the 375px viewport and they overflowed silently. Let them shrink, and let
+   genuinely wide code scroll within its own panel rather than the page. */
+@media (max-width: 700px) {
+  .demo-surface .demo-fill,
+  .demo-surface .findings-layout,
+  .demo-surface .findings-layout > *,
+  .demo-surface .clone-site,
+  .demo-surface .clone-site-row {
+    min-width: 0;
+  }
+  .demo-surface .clone-site-code,
+  .demo-surface .evidence {
+    max-width: 100%;
+    overflow-x: auto;
   }
 }

@@ -16,7 +16,7 @@
   /* text */
   --fg: #e6edf3;
   --fg-muted: #9aa7b4;
-  --fg-dim: #6b7787;
+  --fg-dim: #8693a0; /* was #6b7787 — failed WCAG AA on dark surfaces */
 
   /* accent */
   --accent: #4493f8;
@@ -550,7 +550,7 @@ table.data th.no-sort {
   margin-bottom: 8px;
 }
 .table-filter {
-  background: var(--bg-elev-1);
+  background: var(--bg-elev);
   color: var(--fg);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -593,6 +593,16 @@ table.data th.no-sort {
 .filter-control-label {
   font-size: 11px;
   color: var(--fg-muted);
+}
+/* Checkbox filter ("Include expected"): lay the box + label inline and give the
+   wrapping label a ≥24px height so it is the measured touch target for its native
+   13px checkbox (WCAG 2.5.8 AA). */
+.filter-control-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  cursor: pointer;
 }
 .filter-control .filter-select,
 .filter-control .filter-input,
@@ -676,12 +686,17 @@ td.table-empty {
 
 /* ---- chips ---- */
 .chip {
-  display: inline-block;
+  /* inline-flex + min-height:24px so chips rendered as <button> (filter / group /
+     muted chips) clear the WCAG 2.5.8 AA 24px touch-target minimum — they were
+     22px tall. Static badge chips inherit the same height for consistency. */
+  display: inline-flex;
+  align-items: center;
   border-radius: 999px;
-  padding: 1px 8px;
+  padding: 2px 10px;
+  min-height: 24px;
   font-size: 11px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.4;
   white-space: nowrap;
 }
 .chip.sev-clean {
@@ -1073,7 +1088,10 @@ td.table-empty {
 .tree-toggles label {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  /* ≥24px tall so the wrapping label is the measured touch target for its native
+     13px checkbox (WCAG 2.5.8 AA). */
+  min-height: 24px;
   cursor: pointer;
 }
 .project-tree-workspace {

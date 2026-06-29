@@ -14,7 +14,7 @@ export function DemoPage() {
           anywhere. The findings are baked straight into the page.
         </p>
       </div>
-      <div className="min-h-0 flex-1">
+      <div className="min-h-0 min-w-0 flex-1">
         <DemoViewer />
       </div>
     </div>

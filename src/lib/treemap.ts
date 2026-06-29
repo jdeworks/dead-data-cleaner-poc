@@ -41,11 +41,26 @@ export function relativeLuminance(hex: string): number {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-/** Pick a high-contrast label color (near-black or near-white) for a given cell
- *  background hex. Threshold 0.5 on luminance: bright fills (yellow/orange) get
- *  dark text, dark fills get light text. */
+/** WCAG contrast ratio (1..21) between two hex colors. */
+export function contrastRatio(aHex: string, bHex: string): number {
+  const la = relativeLuminance(aHex);
+  const lb = relativeLuminance(bHex);
+  const hi = Math.max(la, lb);
+  const lo = Math.min(la, lb);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+/** Pick a high-contrast label color for a given cell background hex. Picks
+ *  whichever of pure white / pure black has the BETTER WCAG contrast against the
+ *  cell — a fixed luminance threshold was wrong for the mid-luminance severity
+ *  fills (yellow-green `low`, orange `high`), which sit just under the cutoff and
+ *  so got light text at ~2.4:1 when dark text gives 7-8:1. Selecting by actual
+ *  contrast clears AA (≥4.5:1) on every cell color in the severity ramp, in both
+ *  themes (the ramp is theme-independent). */
 export function labelColorFor(bgHex: string): string {
-  return relativeLuminance(bgHex) > 0.45 ? "#10151b" : "#f4f8fc";
+  return contrastRatio("#ffffff", bgHex) >= contrastRatio("#000000", bgHex)
+    ? "#ffffff"
+    : "#000000";
 }
 
 // ── T1 (P9) — label fit / clip / ellipsize ──────────────────────────────────
