@@ -43,6 +43,16 @@ export function DemoViewer() {
   const [error, setError] = useState<string | null>(null);
   const [view, setView] = useState<DemoView>("treemap");
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
+  // Mobile: the repo switcher + view tabs are only needed to switch, yet they ate
+  // most of a phone screen. Collapse them behind a compact bar (open on demand);
+  // on desktop (sm+) they're always shown via `sm:block` and this flag is moot.
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const currentViewLabel = VIEWS.find((v) => v.id === view)?.label ?? view;
+  // Picking a view on mobile collapses the controls so the content gets the screen.
+  const selectView = (id: DemoView) => {
+    setView(id);
+    setControlsOpen(false);
+  };
 
   useEffect(() => {
     let live = true;
@@ -64,55 +74,80 @@ export function DemoViewer() {
 
   return (
     <div className="flex h-full flex-col">
-      {/* Repo switcher */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-3">
-        <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-fg-muted">
-          Scanned repo
+      {/* Mobile-only collapse toggle — shows the current repo + view and expands the
+          switcher/tabs on demand. Hidden on sm+ where the controls are always shown. */}
+      <button
+        type="button"
+        className="flex items-center justify-between gap-2 border-b border-line px-4 py-2 text-sm sm:hidden"
+        onClick={() => setControlsOpen((o) => !o)}
+        aria-expanded={controlsOpen}
+        aria-controls="demo-controls"
+      >
+        <span className="min-w-0 truncate">
+          <span className="text-fg-muted">{fixture.label}</span>
+          <span className="text-fg-dim"> · </span>
+          <span className="font-medium">{currentViewLabel}</span>
         </span>
-        {FIXTURES.map((f) => (
-          <button
-            key={f.id}
-            onClick={() => setFixtureId(f.id)}
-            className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-              f.id === fixtureId
-                ? "border-accent bg-accent/10 text-accent"
-                : "border-line text-fg-muted hover:border-fg-muted"
-            }`}
-          >
-            {f.label}
-            <span className="ml-1.5 text-xs opacity-70">{f.language}</span>
-          </button>
-        ))}
-      </div>
-      <p className="border-b border-line px-4 py-2 text-sm text-fg-muted">{fixture.story}</p>
+        <span className="shrink-0 text-fg-muted">
+          {controlsOpen ? "Hide ▴" : "Switch repo / view ▾"}
+        </span>
+      </button>
 
-      {/* View tabs — the 4 working tabs, then a divider and inert "preview-only"
-          tabs that advertise the full app's advanced views (screenshots live on
-          the marketing "Road ahead" page). */}
-      <div className="flex flex-wrap items-center gap-1 border-b border-line px-4 py-2">
-        {VIEWS.map((v) => (
-          <button
-            key={v.id}
-            onClick={() => setView(v.id)}
-            className={view === v.id ? "active" : ""}
-          >
-            {v.label}
-          </button>
-        ))}
+      {/* Collapsible controls: collapsed by default on mobile, always shown on sm+. */}
+      <div id="demo-controls" className={controlsOpen ? "" : "hidden sm:block"}>
+        {/* Repo switcher */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-3">
+          <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-fg-muted">
+            Scanned repo
+          </span>
+          {FIXTURES.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => setFixtureId(f.id)}
+              className={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                f.id === fixtureId
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-line text-fg-muted hover:border-fg-muted"
+              }`}
+            >
+              {f.label}
+              <span className="ml-1.5 text-xs opacity-70">{f.language}</span>
+            </button>
+          ))}
+        </div>
+        <p className="border-b border-line px-4 py-2 text-sm text-fg-muted">{fixture.story}</p>
 
-        <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" />
-        <span className="mr-1 text-xs font-medium text-fg-muted">In full tool:</span>
-        {PREVIEW_VIEWS.map((label) => (
-          <button
-            key={label}
-            type="button"
-            {...inertControlProps(PREVIEW_TOOLTIP)}
-            className="cursor-default opacity-50 hover:opacity-75"
-            style={{ borderStyle: "dashed" }}
-          >
-            {label}
-          </button>
-        ))}
+        {/* View tabs — the 4 working tabs, then a divider and inert "preview-only"
+            tabs that advertise the full app's advanced views (screenshots live on
+            the marketing "Road ahead" page). The inert preview tabs are non-functional
+            advertising, so they're hidden on mobile to save vertical space. */}
+        <div className="flex flex-wrap items-center gap-1 border-b border-line px-4 py-2">
+          {VIEWS.map((v) => (
+            <button
+              key={v.id}
+              onClick={() => selectView(v.id)}
+              className={view === v.id ? "active" : ""}
+            >
+              {v.label}
+            </button>
+          ))}
+
+          <span className="hidden sm:contents">
+            <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" />
+            <span className="mr-1 text-xs font-medium text-fg-muted">In full tool:</span>
+            {PREVIEW_VIEWS.map((label) => (
+              <button
+                key={label}
+                type="button"
+                {...inertControlProps(PREVIEW_TOOLTIP)}
+                className="cursor-default opacity-50 hover:opacity-75"
+                style={{ borderStyle: "dashed" }}
+              >
+                {label}
+              </button>
+            ))}
+          </span>
+        </div>
       </div>
 
       {/* Body */}

@@ -1022,6 +1022,46 @@ td.table-empty {
   justify-content: space-between;
   gap: 12px;
 }
+.tree-head-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tree-fullscreen-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-size: 11px;
+  padding: 0 8px;
+  min-height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.tree-fullscreen-btn:hover,
+.tree-fullscreen-btn.active {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+/* Fullscreen overlay for the project tree (mobile usability) — mirrors the treemap
+   overlay: pin the panel to fill the screen, with the workspace scrolling inside. */
+.panel.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  margin: 0;
+  border-radius: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.panel.is-fullscreen .project-tree-workspace {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
 /* Segmented control — reused for the Project tree Files / Import graph toggle. */
 .seg {
   display: inline-flex;

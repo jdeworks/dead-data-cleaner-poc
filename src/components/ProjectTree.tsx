@@ -16,6 +16,7 @@ import {
 // truth for each metadata column's label + alignment — declared sortable:false.
 import { columnAlign, formatBytes, type Column } from "./ui/Table";
 import { SeverityDot } from "./badges";
+import { useFullscreen } from "./useFullscreen";
 import type { GitCommitInfo, GitRepoCommit } from "../lib/tauri";
 import { isTauri, gitFileDiff, gitRecentCommits } from "../lib/tauri";
 import type { GitFileDiff } from "../lib/tauri";
@@ -371,6 +372,8 @@ export function ProjectTree({
   const importAvailable = !!forest && forest.edgeCount > 0;
 
   const [mode, setMode] = useState<"files" | "imports">("files");
+  // Fullscreen the tree on mobile, where the two-column workspace is cramped.
+  const { fullscreen, toggleFullscreen } = useFullscreen();
   const view = mode === "imports" && importAvailable ? "imports" : "files";
 
   // Expand the first two levels of the path hierarchy by default.
@@ -483,25 +486,36 @@ export function ProjectTree({
   const detailScanRoot = scanRootForViewer ?? scanRoot;
 
   return (
-    <div className="panel">
+    <div className={`panel${fullscreen ? " is-fullscreen" : ""}`}>
       <div className="tree-head">
         <h2>Project tree</h2>
-        {importAvailable && (
-          <div className="seg" role="tablist" aria-label="Project tree view">
-            <button
-              className={`seg-btn${view === "files" ? " active" : ""}`}
-              onClick={() => setMode("files")}
-            >
-              Files
-            </button>
-            <button
-              className={`seg-btn${view === "imports" ? " active" : ""}`}
-              onClick={() => setMode("imports")}
-            >
-              Import graph
-            </button>
-          </div>
-        )}
+        <div className="tree-head-actions">
+          {importAvailable && (
+            <div className="seg" role="tablist" aria-label="Project tree view">
+              <button
+                className={`seg-btn${view === "files" ? " active" : ""}`}
+                onClick={() => setMode("files")}
+              >
+                Files
+              </button>
+              <button
+                className={`seg-btn${view === "imports" ? " active" : ""}`}
+                onClick={() => setMode("imports")}
+              >
+                Import graph
+              </button>
+            </div>
+          )}
+          <button
+            type="button"
+            className={`tree-fullscreen-btn${fullscreen ? " active" : ""}`}
+            onClick={toggleFullscreen}
+            aria-pressed={fullscreen}
+            title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen project tree"}
+          >
+            {fullscreen ? "⤢ Exit" : "⤢ Fullscreen"}
+          </button>
+        </div>
       </div>
       <div className="project-tree-workspace">
         <div className="project-tree-tree">
