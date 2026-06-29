@@ -16,6 +16,7 @@ import { ruleLabel } from "../lib/report";
 import { isTauri } from "../lib/tauri";
 import { excludeFolderFlow } from "../lib/exclude";
 import { ContextMenu, type ContextMenuItem } from "./ContextMenu";
+import { useFullscreen } from "./useFullscreen";
 import { DEMO_INERT_TITLE } from "./demoInert";
 import { Table, formatBytes, type Column } from "./ui";
 import { normalizePath } from "../lib/paths";
@@ -303,26 +304,12 @@ export function Treemap({
   // SVG inside a scrollable viewport (pan by dragging/scrolling); `fullscreen` lifts
   // the whole treemap into a fixed overlay so it gets the entire screen.
   const [zoom, setZoom] = useState(1);
-  const [fullscreen, setFullscreen] = useState(false);
+  // Esc-to-close + body-scroll-lock live in the shared hook (also used by ProjectTree).
+  const { fullscreen, setFullscreen, toggleFullscreen } = useFullscreen();
   const ZOOM_MIN = 1;
   const ZOOM_MAX = 4;
   const zoomBy = (d: number) =>
     setZoom((z) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round((z + d) * 10) / 10)));
-
-  // Esc exits fullscreen; lock body scroll while the overlay is open.
-  useEffect(() => {
-    if (!fullscreen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setFullscreen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [fullscreen]);
 
   const selectedPathNorm = selectedPath ? normalizePath(selectedPath) : "";
 
@@ -708,7 +695,7 @@ export function Treemap({
             </span>
             <button
               className={fullscreen ? "active" : ""}
-              onClick={() => setFullscreen((f) => !f)}
+              onClick={toggleFullscreen}
               aria-pressed={fullscreen}
               title={fullscreen ? "Exit fullscreen (Esc)" : "Fullscreen treemap"}
             >
