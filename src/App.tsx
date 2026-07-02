@@ -19,7 +19,7 @@ export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full overflow-x-hidden">
       {/* Desktop sidebar */}
       <div className="hidden sm:flex">
         <Sidebar />
@@ -55,7 +55,7 @@ export default function App() {
           </button>
         </div>
 
-        <main className="min-h-0 min-w-0 flex-1 overflow-auto">
+        <main className="min-h-0 min-w-0 flex-1 overflow-y-auto">
           {view === "landing" && <LandingPage />}
           {view === "why" && <WhyPage />}
           {view === "how-it-works" && <HowItWorksPage />}

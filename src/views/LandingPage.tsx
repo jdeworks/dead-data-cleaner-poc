@@ -49,7 +49,7 @@ export function LandingPage() {
           </Card>
         ))}
       </div>
-      <p className="mt-3 max-w-2xl text-xs text-fg-dim">
+      <p className="mt-3 max-w-prose text-xs text-fg-dim">
         Numbers from our own development across many real repositories. The live demo below runs on
         ripgrep, tmux, and one of our own small harnesses.
       </p>
