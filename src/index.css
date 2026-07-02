@@ -278,6 +278,16 @@ button:not(:disabled),
    rows) had no `min-width:0`, so a wide child (long code/token row) pushed them
    past the 375px viewport and they overflowed silently. Let them shrink, and let
    genuinely wide code scroll within its own panel rather than the page. */
+/* ── Fix 4: placeholder contrast in light mode ──
+   Browser default applies ~54% opacity to placeholder text, which drops light-mode
+   contrast from ~6:1 (full --fg) to ~3.5:1 on white — below the 4.5:1 WCAG AA
+   target. Pin placeholder to --fg-muted (#59636e, 6.1:1 on white) in light mode.
+   Dark mode is unaffected (browser default already clears 4.5:1 on the dark canvas). */
+:root.light .demo-surface input::placeholder,
+:root.light .demo-surface textarea::placeholder {
+  color: var(--fg-muted); /* #59636e in light — 6.1:1 on #ffffff */
+}
+
 @media (max-width: 700px) {
   .demo-surface .demo-fill,
   .demo-surface .findings-layout,

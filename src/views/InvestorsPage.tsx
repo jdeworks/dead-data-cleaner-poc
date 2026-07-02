@@ -87,7 +87,7 @@ export function InvestorsPage() {
           </tbody>
         </table>
       </div>
-      <p className="mb-12 text-xs text-fg-dim">
+      <p className="mb-12 max-w-2xl text-xs text-fg-dim">
         knip, ts-prune, vulture, and cargo-udeps are good, focused tools. Each covers one language
         and code only. The opening is the union of all of them, plus the docs and data they ignore,
         with evidence that makes deletion safe.

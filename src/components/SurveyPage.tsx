@@ -187,7 +187,7 @@ export function SurveyPage() {
             value={data.contact}
             onChange={(e) => update("contact", e.target.value)}
             placeholder="hello@world"
-            className="w-full rounded-lg border border-line bg-canvas p-3 text-base outline-none focus:ring-2 focus:ring-accent/50"
+            className="w-full rounded-lg border border-line bg-canvas p-3 text-base outline-none placeholder:text-fg-muted focus:ring-2 focus:ring-accent/50"
           />
         </Question>
         <Question label="Anything else you'd like to share?" optional>
@@ -196,7 +196,7 @@ export function SurveyPage() {
             value={data.feedback}
             onChange={(e) => update("feedback", e.target.value)}
             placeholder="Ideas, concerns, feature requests…"
-            className="h-24 w-full resize-none rounded-lg border border-line bg-canvas p-3 text-base outline-none focus:ring-2 focus:ring-accent/50"
+            className="h-24 w-full resize-none rounded-lg border border-line bg-canvas p-3 text-base outline-none placeholder:text-fg-muted focus:ring-2 focus:ring-accent/50"
           />
         </Question>
 

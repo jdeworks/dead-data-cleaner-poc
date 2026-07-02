@@ -81,7 +81,7 @@ export function RoadmapPage() {
         <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-fg-muted">
           Advanced features
         </h2>
-        <p className="mb-3 text-sm text-fg-dim">
+        <p className="mb-3 max-w-2xl text-sm text-fg-dim">
           The deeper views: cross-layer, architecture drift, the dependency graph, duplication, doc
           health, and origin flow. Shown here as screenshots, while the live demo stays on the
           general views.
@@ -102,7 +102,7 @@ export function RoadmapPage() {
           </div>
         ) : (
           <Card>
-            <p className="text-sm text-fg-dim">
+            <p className="max-w-2xl text-sm text-fg-dim">
               Screenshot gallery coming, captured from the real desktop app.
             </p>
           </Card>
