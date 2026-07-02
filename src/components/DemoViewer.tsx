@@ -151,7 +151,7 @@ export function DemoViewer() {
       </div>
 
       {/* Body */}
-      <div className="min-h-0 flex-1 overflow-auto p-4">
+      <div className="min-h-0 min-w-0 flex-1 overflow-auto p-4">
         {error && (
           <div className="rounded-lg border border-error-border bg-error-bg px-4 py-3 text-sm text-error-fg">
             Could not load fixture: {error}

@@ -41,7 +41,7 @@ export default function App() {
           <button
             onClick={() => setDrawerOpen(true)}
             aria-label="Open menu"
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-line text-lg text-fg-muted"
+            className="flex h-11 w-11 min-w-[44px] items-center justify-center rounded-md border border-line text-lg text-fg-muted"
           >
             ☰
           </button>
@@ -49,13 +49,13 @@ export default function App() {
           <button
             onClick={toggleTheme}
             aria-label="Toggle light / dark theme"
-            className="ml-auto flex h-11 w-11 items-center justify-center rounded-md border border-line text-fg-muted"
+            className="ml-auto flex h-11 w-11 min-w-[44px] items-center justify-center rounded-md border border-line text-fg-muted"
           >
             {theme === "dark" ? "☾" : "☀"}
           </button>
         </div>
 
-        <main className="min-h-0 flex-1 overflow-auto">
+        <main className="min-h-0 min-w-0 flex-1 overflow-auto">
           {view === "landing" && <LandingPage />}
           {view === "why" && <WhyPage />}
           {view === "how-it-works" && <HowItWorksPage />}
