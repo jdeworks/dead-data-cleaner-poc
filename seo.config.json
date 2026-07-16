@@ -1,0 +1,29 @@
+{
+  "siteName": "Dead Data Cleaner",
+  "baseUrl": "https://jdeworks.github.io/dead-data-cleaner-poc/",
+  "publishDir": "docs",
+  "sitemap": "sitemap.xml",
+  "pages": [
+    {
+      "file": "index.html",
+      "route": "",
+      "title": "Dead Data Cleaner – Find Dead Code and Stale Data (Demo)",
+      "description": "Interactive demo of dead-data-cleaner, a tool that scans a codebase and its data for dead weight: unused symbols, orphaned files, stale docs, duplicated blocks, and dangling config.",
+      "schema": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Dead Data Cleaner Demo",
+        "url": "https://jdeworks.github.io/dead-data-cleaner-poc/",
+        "description": "Interactive demo of dead-data-cleaner, a tool that scans a codebase and its data for dead weight: unused symbols, orphaned files, stale docs, duplicated blocks, and dangling config.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any operating system with a modern web browser",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    }
+  ]
+}
