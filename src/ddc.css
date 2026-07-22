@@ -828,9 +828,9 @@ td.table-empty {
 .treemap-svg-scroll {
   width: 100%;
   overflow: auto;
-  overscroll-behavior: contain;
 }
 .treemap-svg-scroll[data-zoomed="true"] {
+  overscroll-behavior: contain;
   cursor: grab;
   border: 1px solid var(--border);
   border-radius: 6px;
